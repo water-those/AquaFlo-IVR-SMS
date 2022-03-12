@@ -1,78 +1,63 @@
-<a href="https://www.twilio.com">
+﻿<a href="https://www.twilio.com">
   <img src="https://static0.twilio.com/marketing/bundles/marketing/img/logos/wordmark-red.svg" alt="Twilio" width="250" />
 </a>
 
-# IVR Phone Tree: IVR for beginners. Powered by Twilio - Python/Flask
+# IVR Phone Tree: IVR for beginners. Powered by Twilio - Node.js/Express
 
-[![Build Status](https://travis-ci.org/TwilioDevEd/ivr-phone-tree-python.svg?branch=master)](https://travis-ci.org/TwilioDevEd/ivr-phone-tree-python)
+[![Node.js CI](https://github.com/TwilioDevEd/ivr-phone-tree-node/actions/workflows/node.js.yml/badge.svg)](https://github.com/TwilioDevEd/ivr-phone-tree-node/actions/workflows/node.js.yml)
 
-This is an application example implementing an automated phone line using
-Python 2.7 and [Flask](http://flask.pocoo.org/) web framework.
+Create a seamless customer service experience by building an IVR Phone Tree for your company. IVR systems allow your customers to access the people and information they need.
 
-[Read the full tutorial here](https://www.twilio.com/docs/tutorials/walkthrough/ivr-phone-tree/python/flask)!
+[Read the full tutorial here!](https://www.twilio.com/docs/tutorials/walkthrough/ivr-phone-tree/node/express)
 
 ## Local Development
 
-This project is built using [Flask](http://flask.pocoo.org/) web framework.
+This project is build using [Express](http://expressjs.com/) web framework and
+depends on [MongoDB](https://www.mongodb.com).
+
 
 1. First clone this repository and `cd` into it.
 
    ```bash
-   $ git clone git@github.com:TwilioDevEd/ivr-phone-tree-python.git
-   $ cd ivr-phone-tree-python
+   git clone git@github.com:TwilioDevEd/ivr-phone-tree-node.git \
+   cd ivr-phone-tree-node
    ```
+1. Install project's dependencies.
 
-1. Create a new virtual environment.
-
-    - If using vanilla [virtualenv](https://virtualenv.pypa.io/en/latest/):
-
-        ```bash
-        virtualenv venv
-        source venv/bin/activate
-        ```
-
-    - If using [virtualenvwrapper](https://virtualenvwrapper.readthedocs.org/en/latest/):
-
-        ```bash
-        mkvirtualenv ivr-phone-tree-python
-        ```
-
-1. Install the dependencies.
-
-    ```bash
-    pip install -r requirements.txt
-    ```
+   ```bash
+   npm install
+   ```
 
 1. Make sure the tests succeed.
 
-    ```bash
-    $ coverage run manage.py test
-    ```
+   ```bash
+   npm test
+   ```
 
-1. Start the server.
+1. Start the development server.
 
-    ```bash
-    python manage.py runserver
-    ```
+   ```bash
+   npm start
+   ```
+
+   Alternatively you might also consider using [nodemon](https://github.com/remy/nodemon) for this. It works just like
+   the node command, but automatically restarts your application when you change any source code files.
+
+   ```bash
+   npm install -g nodemon \
+   nodemon .
+   ```
+
+1. Check it out at [http://localhost:3000](http://localhost:3000).
 
 1. Expose the application to the wider Internet using [ngrok](https://ngrok.com/).
 
-    ```bash
-    ngrok http 5000 -host-header="localhost:5000"
-    ```
+   ```bash
+   ngrok http 3000
+   ```
 
-1. Configure Twilio to call your webhooks
-
-  You will also need to configure Twilio to call your application when calls are
-  received in your [*Twilio Number*](https://www.twilio.com/user/account/messaging/phone-numbers).
-  The voice url should look something like this:
-
-  ```
-  http://<your-ngrok-subdomain>.ngrok.io/ivr/welcome
-  ```
-
-  ![Configure Voice](http://howtodocs.s3.amazonaws.com/twilio-number-config-all-med.gif)
-
+1. Provision a number under the [Twilio's Manage Numbers](https://www.twilio.com/console/phone-numbers/incoming)
+   page on your account. Set the voice URL for the number to http://[your-ngrok-subdomain].ngrok.io/ivr/welcome
 
 ## Meta
 
