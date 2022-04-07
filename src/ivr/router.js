@@ -1,5 +1,6 @@
 const Router = require('express').Router;
 const {welcome, menu, planets} = require('./handler');
+console.log("dogtosis is being dogexecuted");
 
 const router = new Router();
 
@@ -11,7 +12,9 @@ router.post('/welcome', (req, res) => {
 // POST: /ivr/menu
 router.post('/menu', (req, res) => {
   const digit = req.body.Digits;
-  return res.send(menu(digit));
+  menu(digit).then((result) => {
+    return res.send(result);
+  })
 });
 
 
