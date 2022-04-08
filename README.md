@@ -28,12 +28,19 @@ Based off of [Twilio's IVR Example](https://www.twilio.com/docs/tutorials/walkth
    npm start
    ```
 
-   Alternatively you might also consider using [nodemon](https://github.com/remy/nodemon) for this. It works just like
-   the node command, but automatically restarts your application when you change any source code files.
-
-   ```bash
-   npm install -g nodemon \
-   nodemon .
-   ```
-
 1. Check it out at [http://localhost:3000](http://localhost:3000).
+
+
+## Code Structure
+
+`public/stylesheets`
+CSS
+
+`scripts`
+Contains one-off scripts related to managing IVR data. 
+
+`src`
+Source code files.
+
+Each directory contains logic for handling their associated url. 
+e.g. `src/ivr` contains code for handling any requests to `/ivr/.../`
