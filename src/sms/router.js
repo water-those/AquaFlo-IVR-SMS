@@ -7,6 +7,7 @@ import { getFirestore } from 'firebase-admin/firestore';
 const MessagingResponse = twilio.twiml.MessagingResponse;
 
 const router = new Router();
+const db = getFirestore();
 
 // POST: /sms
 router.post('/', (req, res) => {
