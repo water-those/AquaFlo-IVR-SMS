@@ -1,13 +1,5 @@
-const Router = require('express').Router;
-const {
-  welcome, 
-  status_check, 
-  statusCheckHandler,
-  reportFunctionalHandler,
-  reportBrokenHandler, 
-  report_broken, 
-  report_functional
-} = require('./handler');
+import { Router } from 'express';
+import { welcome, status_check, statusCheckHandler, reportFunctionalHandler, reportBrokenHandler, report_broken, report_functional } from './handler.js';
 
 const router = new Router();
 
@@ -54,4 +46,4 @@ router.post('/report_functional', (req, res) => {
 });
 
 
-module.exports = router;
+export default router;

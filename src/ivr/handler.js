@@ -1,8 +1,10 @@
-const VoiceResponse = require('twilio').twiml.VoiceResponse;
-const { initializeApp, applicationDefault, cert } = require('firebase-admin/app');
-const { getFirestore, Timestamp, FieldValue } = require('firebase-admin/firestore');
+import twilio from 'twilio';
+import { initializeApp, cert } from 'firebase-admin/app';
+import { getFirestore } from 'firebase-admin/firestore';
 
-const serviceAccount = require('../../test-api.json');
+const VoiceResponse = twilio.twiml.VoiceResponse;
+
+import serviceAccount from '../../test-api.js';
 
 initializeApp({
   credential: cert(serviceAccount)
@@ -10,7 +12,7 @@ initializeApp({
 
 const db = getFirestore();
 
-exports.welcome = function welcome() {
+export function welcome() {
   const voiceResponse = new VoiceResponse();
 
   const gather = voiceResponse.gather({
@@ -29,10 +31,10 @@ exports.welcome = function welcome() {
   );
 
   return voiceResponse.toString();
-};
+}
 
 
-exports.status_check = function status_check() {
+export function status_check() {
   const voiceResponse = new VoiceResponse();
 
   const gather = voiceResponse.gather({
@@ -47,9 +49,9 @@ exports.status_check = function status_check() {
   );
 
   return voiceResponse.toString();
-};
+}
 
-exports.report_broken = function report_broken() {
+export function report_broken() {
   const voiceResponse = new VoiceResponse();
 
   const gather = voiceResponse.gather({
@@ -64,9 +66,9 @@ exports.report_broken = function report_broken() {
   );
 
   return voiceResponse.toString();
-};
+}
 
-exports.report_functional = function report_functional() {
+export function report_functional() {
   const voiceResponse = new VoiceResponse();
 
   const gather = voiceResponse.gather({
@@ -83,7 +85,7 @@ exports.report_functional = function report_functional() {
   return voiceResponse.toString();
 }
 
-exports.statusCheckHandler = function statusCheckHandler(digit) {
+export function statusCheckHandler(digit) {
   return new Promise((resolve) => {
     db.collection('watersources').limit(1).where('id', '==', parseInt(digit)).get().then((watersources) => {
       const twiml = new VoiceResponse();
@@ -109,10 +111,10 @@ exports.statusCheckHandler = function statusCheckHandler(digit) {
       resolve(twiml.toString());
     });
   })
-};
+}
 
 
-exports.reportBrokenHandler = function reportBrokenHandler(id) {
+export function reportBrokenHandler(id) {
   return new Promise((resolve) => {
     db.collection('watersources').limit(1).where('id', '==', parseInt(id)).get().then((watersources) => {
       const twiml = new VoiceResponse();
@@ -142,9 +144,9 @@ exports.reportBrokenHandler = function reportBrokenHandler(id) {
       });
     });
   })
-};
+}
 
-exports.reportFunctionalHandler = function reportFunctionalHandler(id) {
+export function reportFunctionalHandler(id) {
   return new Promise((resolve) => {
     db.collection('watersources').limit(1).where('id', '==', parseInt(id)).get().then((watersources) => {
       const twiml = new VoiceResponse();
@@ -174,4 +176,4 @@ exports.reportFunctionalHandler = function reportFunctionalHandler(id) {
       });
     });
   })
-};
+}

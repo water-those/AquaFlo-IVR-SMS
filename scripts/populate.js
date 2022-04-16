@@ -1,7 +1,7 @@
-const { initializeApp, cert } = require('firebase-admin/app');
-const { getFirestore } = require('firebase-admin/firestore');
+import { initializeApp, cert } from 'firebase-admin/app';
+import { getFirestore } from 'firebase-admin/firestore';
 
-const serviceAccount = require('../test-api.json');
+const serviceAccount = require('../test-api');
 // const serviceAccount = require('./waterthose-api.json');
 
 initializeApp({

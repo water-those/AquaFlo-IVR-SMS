@@ -1,8 +1,8 @@
-const app = require('./app');
-const config = require('./config');
+import app from './application.js';
+import { port } from './config.js';
 
-const server = app.listen(config.port, function() {
+const server = app.listen(port, function() {
   console.log('Express server listening on port ' + server.address().port);
 });
 
-module.exports = server;
+export default server;
