@@ -1,21 +1,24 @@
 
 import { Router } from 'express';
 import twilio from 'twilio';
-import { initializeApp, cert } from 'firebase-admin/app';
-import { getFirestore } from 'firebase-admin/firestore';
+import { getSMSResponse } from './handler.js';
 
 const MessagingResponse = twilio.twiml.MessagingResponse;
 
 const router = new Router();
-const db = getFirestore();
 
 // POST: /sms
 router.post('/', (req, res) => {
+  // Grabs `Body` field from Twilio's request 
+  // See here for more: https://www.twilio.com/docs/messaging/guides/webhook-request
+  // TODO: SANITIZE INPUT!!!!!!!!!!!!!!
+  const body = req.body.Body;
   const twiml = new MessagingResponse();
 
-  twiml.message('bingus');
-
-  return res.send(twiml.toString());
+  getSMSResponse(body).then(smsResponse => {
+    twiml.message(smsResponse);
+    return res.send(twiml.toString());
+  });
 });
 
 
