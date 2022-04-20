@@ -8,32 +8,75 @@ const commandMapping = {
 
 const db = getFirestore();
 
-function checkStatus(param) {
+function getHandpumpData(id) {
   return new Promise((resolve, reject) => {
     db.collection('watersources')
     .limit(1)
-    .where('id', '==', parseInt(param))
+    .where('id', '==', parseInt(id))
     .get()
     .then(watersources => {
       if (watersources.empty) {
-        resolve('Sorry, hand pump ' + param  + ' was not found');
+        reject('Sorry, hand pump ' + id  + ' was not found');
         return;
       }
 
-      resolve(watersources.docs[0].data()['reported_status']);
+      resolve(watersources.docs[0].data());
     }).catch((err) => {
-      // TODO: refactor uses of checkStatus to anticipate a reject
-      resolve("Sorry, something went wrong.");
+      reject("Sorry, something went wrong.");
     });
   });
 }
 
-function reportBroken(param) {
-
+function checkStatus(param) {
+  return new Promise(resolve => {
+    getHandpumpData(param).then(handpump => {
+      resolve(handpump['reported_status']);
+    }).catch(err => {
+      resolve("Handpump not found.")
+    });
+  });
 }
 
-function reportFunctional(param) {
+function reportBroken(id) {
+  return new Promise((resolve) => {
+    db.collection('watersources').limit(1).where('id', '==', parseInt(id)).get().then((watersources) => {
+      if (watersources.empty) {
+        resolve('Sorry, hand pump ' + id  + ' was not found');
+        return;
+      }
+  
+      watersources.docs[0]._ref.set({reported_status: 'broken'}, {merge: true}).then(() => {
+        resolve(
+          'Pump ' + id + ' was reported as broken. Thank you! '
+        );
+      })
+      .catch(error => {
+        console.error(error);
+        resolve('Sorry. Something weng wrong. Please try again.');
+      });
+    });
+  })
+}
 
+function reportFunctional(id) {
+  return new Promise((resolve) => {
+    db.collection('watersources').limit(1).where('id', '==', parseInt(id)).get().then((watersources) => {
+      if (watersources.empty) {
+        resolve('Sorry, hand pump ' + id  + ' was not found');
+        return;
+      }
+  
+      watersources.docs[0]._ref.set({reported_status: 'functional'}, {merge: true}).then(() => {
+        resolve(
+          'Pump ' + id + ' was reported as functional. Thank you! '
+        );
+      })
+      .catch(error => {
+        console.error(error);
+        resolve('Sorry. Something weng wrong. Please try again.');
+      });
+    });
+  })
 }
 
 function getSMSResponse(body) {
@@ -41,4 +84,4 @@ function getSMSResponse(body) {
   return commandMapping[command](param);
 }
 
-export { getSMSResponse };
+export { getSMSResponse, reportBroken, reportFunctional };

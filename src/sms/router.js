@@ -17,7 +17,7 @@ router.post('/', (req, res) => {
 
   getSMSResponse(body).then(smsResponse => {
     twiml.message(smsResponse);
-    return res.send(twiml.toString());
+    res.send(twiml.toString());
   });
 });
 
