@@ -1,6 +1,6 @@
 ﻿# Xylem Challenge IVR Backend
 
-Based off of [Twilio's IVR Example](https://www.twilio.com/docs/tutorials/walkthrough/ivr-phone-tree/node/express).
+Based off of [Twilio's IVR Example](https://www.twilio.com/docs/tutorials/walkthrough/ivr-phone-tree/node/express). This IVR and SMS system is a part of AquaFlo and submitted to the [2022 Xylem Global Student Innovation Challenge](https://xyleminnovationchallenge.bemyapp.com/)
 
 ## IVR and SMS Demo
 [Video Demo of AquaFlo's IVR and SMS](https://drive.google.com/file/u/1/d/1pLDBj1_BllvA7Zys-oK93jW9aK4nT5Vl/view)
